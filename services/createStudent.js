@@ -1,7 +1,7 @@
 const StudentModel = require('../models/student.model');
 const fastcsv = require("fast-csv");
 const fs = require("fs");
-const ws = fs.createWriteStream("data.csv");
+const ws = fs.createWriteStream("public/data.csv");
 
 const createStudent = async (req, res) => {
     try {
@@ -39,7 +39,6 @@ const getStudent = async (req, res) => {
             skip: 0,
         }
 
-
         if (id) {
             filterObj = { id: +id }
         }
@@ -52,7 +51,7 @@ const getStudent = async (req, res) => {
         }
 
         if (standard) {
-            filterObj = { ...filterObj, standard: standard }
+            filterObj = { ...filterObj, standard: +standard }
         }
         if (city) {
             filterObj = { ...filterObj, ["address.city"]: city }
@@ -74,17 +73,25 @@ const getStudent = async (req, res) => {
         ]);
 
         if (studentData.length > 0 && csv == "true") {
-            fastcsv
-                .write(studentData, { headers: true })
-                .on("finish", function () {
-                    console.log("Write to CSV successfully!");
-                })
-                .pipe(ws);
+            await csvDownload(studentData)
         }
         return studentData;
     } catch (error) {
         throw new Error("message: error in found student service: " + error.message);
     }
+}
+
+function csvDownload(data){
+    return new Promise(function(resolve, reject) {
+        fastcsv
+        .write(data, { headers: true })
+        .on("finish", function () {
+            console.log("Write to CSV successfully!");
+            resolve();
+        })
+        .pipe(ws);
+    });
+
 }
 
 module.exports = {

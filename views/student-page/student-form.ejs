@@ -1,0 +1,60 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <%- include('../includes/loader.ejs') %>
+
+        <main>
+        <h1 style="text-align: center ;">Student Details</h1>
+
+<form action="<%= studentData != null ? '/student/updateStudent' : '/student/createStudent' %>" method="post">
+    <div class="form-control">
+        <label for="firstname">Student First Name</label>
+        <input type="text" name="firstname" id="firstname" value="<%= studentData ? studentData.firstname : '' %>">
+    </div>
+    <div class="form-control">
+        <label for="fathersName">Student Fathers Name</label>
+        <input type="text" name="fathersName" id="fathersName" value="<%= studentData? studentData.fathersName: '' %>">
+    </div>
+    <div class="form-control">
+        <label for="lastname">Student Last Name</label>
+        <input type="text" name="lastname" id="lastname" value="<%= studentData ? studentData.lastname : '' %>">
+    </div>
+    <div class="form-control">
+        <label for="contact">Student Contact Number</label>
+        <input type="text" name="contact" id="contact" value="<%= studentData ? studentData.contact: '' %>">
+    </div>
+    <div class="form-control">
+        <label for="standard">Student standard Standard</label>
+        <input type="text" name="standard" id="standard" value="<%= studentData ? studentData.standard: '' %>">
+    </div>
+    <div class="form-control">
+        <label for="address.location">Student Address location</label>
+        <input type="text" name="address.location" id="address.location" value="<%= studentData ? studentData.address.location : '' %>">
+    </div>
+    <div class="form-control">
+        <label for="address.city">Student Address City</label>
+        <input type="text" name="address.city" id="address.city" value="<%= studentData ?  studentData.address.city : '' %>">
+    </div>
+    <div class="form-control">
+        <label for="address.state">Student Address State</label>
+        <input type="text" name="address.state" id="address.state" value="<%= studentData ? studentData.address.state : ''%>">
+    </div>
+    <div class="form-control">
+        <label for="address.country">Student Address Country</label>
+        <input type="text" name="address.country" id="address.country" value="<%= studentData ? studentData.address.country : '' %>">
+    </div>
+    <div class="form-control">
+        <label for="address.pincode">Student Address Pincode</label>
+        <input type="text" name="address.pincode" id="address.pincode" value="<%= studentData ? studentData.address.pincode : '' %>">
+    </div>
+    <button class="btn" type="submit"> Submit</button>
+    <% if(studentData) {%>
+        <input type="text" hidden name="id" id="id" value="<%= studentData.id %>">
+<% } %>
+</form>
+</main>
+
+<%- include('../includes/end.ejs') %>

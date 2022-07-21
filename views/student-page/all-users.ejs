@@ -1,0 +1,72 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="/css/forms.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+
+
+            <main>
+                <hr>
+                <form action="/filter" method="post">
+                <div class="form-control">
+                    <label for="firstname">FilterBy First Name:</label>
+                    <input type="text" name="firstname" id="firstname" value="">
+                </div>
+                <div class="form-control">
+                    <label for="lastname">FilterBy Last Name:</label>
+                    <input type="text" name="lastname" id="lastname" value="">
+                </div>
+                <div class="form-control">
+                    <label for="standard">FilterBy Standard:</label>
+                    <input type="text" name="standard" id="standard" value="">
+                </div>
+                <div class="form-control">
+                    <label for="country">FilterBy country Name:</label>
+                    <input type="text" name="country" id="country" value="">
+                </div>
+                    <label for="country">Download CSV</label>
+                    <input type="checkbox" name="csv" id="csv">
+                    <br>
+                <button type="submit">Filter</button>
+                <hr>
+            </form>
+
+                <% if (users.length > 0) { %>
+                    <div class="grid">
+                        <% for (let user of users) { %>
+                            <article class="card product-item">
+                                <header class="card__header">
+                                    <h1 class="product__title"> Name:
+                                        <%= user.firstname + ' ' + user.lastname + ' '%>
+                                    </h1>
+                                </header>
+                               
+                                <div class="card__content">
+                                    <h4 class="product__price"> ID: 
+                                        <%= user.id %>
+                                    </h4>
+                                    <h4 class="product__price"> standard: 
+                                        <%= user.standard %>
+                                    </h4>
+                                    <p class="product__description"> 
+                                        <h4 class="product__price"> Address: 
+                                            <%= user.address.location + ',' + user.address.city + ',' + user.address.state + ',' + user.address.country %>
+                                        </h4>
+                                    </p>
+                                    <span style="padding: 10px; text-align: left;">
+                                        <a href="/student/edit?id=<%= user.id %>">Edit Student</a>
+                                    </span>
+                                    <span style="padding: 10px; text-align: right;">
+                                        <a href="/student/deleteStudent/<%= user.id %>">Delete Student</a>
+                                    </span>
+                                </div>
+                            </article>
+                            <% } %>
+                    </div>
+                    <% } else { %>
+                        <h1>No Student Found!</h1>
+                        <% } %>
+            </main>
+            <%- include('../includes/end.ejs') %>

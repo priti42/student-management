@@ -4,7 +4,9 @@ const { responseGenerator } = require("../utils/helper")
 const createStudentController = async(req, res) => {
     try {
         const data = await createStudent(req, res)
-        responseGenerator(res, data, 200, "student created successfully", null);
+        // responseGenerator(res, data, 200, "student created successfully", null);
+        res.redirect('/')
+
     } catch (error) {
         responseGenerator(res, null, 500, "error: student not created", error);
         throw new Error(error);
@@ -14,7 +16,8 @@ const createStudentController = async(req, res) => {
 const updateStudentController = async(req, res) => {
     try {
         const data = await updateStudent(req, res)
-        responseGenerator(res, data, 200, "student updated successfully", null);
+        // responseGenerator(res, data, 200, "student updated successfully", null);
+        res.redirect('/')
     } catch (error) {
         responseGenerator(res, null, 500, "error: student not updated", error);
         throw new Error(error);
@@ -24,7 +27,8 @@ const updateStudentController = async(req, res) => {
 const deleteStudentController = async(req, res) => {
     try {
         const data = await deleteStudent(req, res)
-        responseGenerator(res, data, 200, "student deleted successfully", null);
+        // responseGenerator(res, data, 200, "student deleted successfully", null);
+        res.redirect('/')
     } catch (error) {
         responseGenerator(res, null, 500, "error: student not deleted", error);
         throw new Error(error);
@@ -34,7 +38,12 @@ const deleteStudentController = async(req, res) => {
 const getStudentController = async(req, res) => {
     try {
         const data = await getStudent(req, res)
-        responseGenerator(res, data, 200, "student found successfully", null);
+        // responseGenerator(res, data, 200, "student found successfully", null);
+        res.render("student-page/all-users", {
+            path: "/student/getStudent",
+            pageTitle : "Student List",
+            users: data
+        })
     } catch (error) {
         responseGenerator(res, null, 500, "error: student not found", error);
         throw new Error(error);

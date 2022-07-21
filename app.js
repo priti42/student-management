@@ -12,7 +12,8 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
+app.use(express.static('public'))
 
 require('dotenv').config(); // .env configuration will access to enviorment variables
 require('./utils/db'); // Mongo connection

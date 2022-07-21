@@ -5,11 +5,11 @@ const { CREATE_STUDENT, UPDATE_STUDENT, DELETE_STUDENT, GET_STUDENT } = require(
 const router = express.Router();
 
 
-router.post(CREATE_STUDENT, createSchema, createStudentController);
+router.post(CREATE_STUDENT, createStudentController);
 
-router.put(UPDATE_STUDENT, updateStudentController);
+router.post(UPDATE_STUDENT, updateStudentController);
 
-router.delete(DELETE_STUDENT, deleteStudentController);
+router.get(DELETE_STUDENT, deleteStudentController);
 
 router.get(GET_STUDENT, getStudentController);
 
